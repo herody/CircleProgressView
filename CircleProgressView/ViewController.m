@@ -23,10 +23,10 @@
     _progressView.circleBorderWidth = 8;
     _progressView.circleColor = [UIColor orangeColor];
     _progressView.progressColor = [UIColor greenColor];
-    _progressView.pointRadius = 5;
-    _progressView.pointColor = [UIColor redColor];
+    _progressView.pointRadius = 4;
+    _progressView.pointColor = [UIColor whiteColor];
     _progressView.pointBorderWidth = 1;
-    _progressView.pointBorderColor = [UIColor blackColor];
+    _progressView.pointBorderColor = [UIColor grayColor];
     [self.view addSubview:_progressView];
 }
 
