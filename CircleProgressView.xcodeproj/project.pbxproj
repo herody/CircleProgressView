@@ -13,6 +13,7 @@
 		9E608A521F233641009718DB /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9E608A501F233641009718DB /* Main.storyboard */; };
 		9E608A541F233641009718DB /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9E608A531F233641009718DB /* Assets.xcassets */; };
 		9E608A571F233641009718DB /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9E608A551F233641009718DB /* LaunchScreen.storyboard */; };
+		9E608A611F233667009718DB /* YDCircleProgressView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9E608A601F233667009718DB /* YDCircleProgressView.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -26,6 +27,8 @@
 		9E608A531F233641009718DB /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		9E608A561F233641009718DB /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		9E608A581F233641009718DB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		9E608A5F1F233667009718DB /* YDCircleProgressView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YDCircleProgressView.h; sourceTree = "<group>"; };
+		9E608A601F233667009718DB /* YDCircleProgressView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YDCircleProgressView.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -62,6 +65,7 @@
 				9E608A4B1F233641009718DB /* AppDelegate.m */,
 				9E608A4D1F233641009718DB /* ViewController.h */,
 				9E608A4E1F233641009718DB /* ViewController.m */,
+				9E608A5E1F233667009718DB /* YDCircleProgressView */,
 				9E608A501F233641009718DB /* Main.storyboard */,
 				9E608A531F233641009718DB /* Assets.xcassets */,
 				9E608A551F233641009718DB /* LaunchScreen.storyboard */,
@@ -77,6 +81,15 @@
 				9E608A481F233641009718DB /* main.m */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		9E608A5E1F233667009718DB /* YDCircleProgressView */ = {
+			isa = PBXGroup;
+			children = (
+				9E608A5F1F233667009718DB /* YDCircleProgressView.h */,
+				9E608A601F233667009718DB /* YDCircleProgressView.m */,
+			);
+			path = YDCircleProgressView;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -150,6 +163,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9E608A611F233667009718DB /* YDCircleProgressView.m in Sources */,
 				9E608A4F1F233641009718DB /* ViewController.m in Sources */,
 				9E608A4C1F233641009718DB /* AppDelegate.m in Sources */,
 				9E608A491F233641009718DB /* main.m in Sources */,
