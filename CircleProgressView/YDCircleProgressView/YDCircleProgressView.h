@@ -10,15 +10,15 @@
 
 @interface YDCircleProgressView : UIView
 @property (nonatomic, strong) UIColor *circleColor; //背景圆颜色
-@property (nonatomic, strong) UIColor *progressColor; //进度颜色
-@property (nonatomic, strong) UIColor *pointColor;  //圆点颜色
-@property (nonatomic, strong) UIColor *pointBorderColor; //圆点边框色
+@property (nonatomic, strong) UIColor *progressColor; //进度条颜色
+@property (nonatomic, strong) UIColor *pointColor;  //小圆点颜色
+@property (nonatomic, strong) UIColor *pointBorderColor; //小圆点边框色
 
-@property (nonatomic, assign) CGFloat circleRadius;  //半径
-@property (nonatomic, assign) CGFloat circleBorderWidth;  //线条宽度
+@property (nonatomic, assign) CGFloat circleRadius;  //背景圆半径
+@property (nonatomic, assign) CGFloat circleBorderWidth;  //背景圆线条宽度
 
-@property (nonatomic, assign) CGFloat pointRadius;  //圆点半径
-@property (nonatomic, assign) CGFloat pointBorderWidth;  //圆点边框宽度
+@property (nonatomic, assign) CGFloat pointRadius;  //小圆点半径
+@property (nonatomic, assign) CGFloat pointBorderWidth;  //小圆点边框宽度
 
 
 /**

@@ -32,7 +32,7 @@
 
 - (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event
 {
-    [self.progressView runToProgress:0.8 duration:2.0];
+    [self.progressView runToProgress:0.8 duration:0];
 }
 
 @end

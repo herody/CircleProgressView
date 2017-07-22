@@ -41,17 +41,19 @@
 
 - (void)drawRect:(CGRect)rect
 {
+    //背景圆
     UIBezierPath *circlePath = [UIBezierPath bezierPathWithRoundedRect:CGRectMake(self.bounds.size.width * 0.5 - self.circleRadius, self.bounds.size.width * 0.5 - self.circleRadius, self.circleRadius * 2, self.circleRadius * 2) cornerRadius:self.circleRadius];
     [self.circleColor setStroke];
     circlePath.lineWidth = self.circleBorderWidth;
     [circlePath stroke];
 
+    //进度条
     UIBezierPath *progressPath = [UIBezierPath bezierPathWithArcCenter:CGPointMake(self.bounds.size.width * 0.5, self.bounds.size.height * 0.5) radius:self.circleRadius startAngle:-M_PI_2 endAngle:M_PI * 2 * self.curProgress - M_PI_2 clockwise:YES];
     [self.progressColor setStroke];
     progressPath.lineWidth = self.circleBorderWidth;
     [progressPath stroke];
     
-
+    //小圆点
     UIBezierPath *pointPath = [UIBezierPath bezierPathWithArcCenter:progressPath.currentPoint radius:self.pointRadius startAngle:0 endAngle:M_PI * 2 clockwise:YES];
     [self.pointColor setFill];
     [pointPath fill];
@@ -68,8 +70,11 @@
     self.duration = duration;
     self.curProgress = 0;
     
+    //停止定时器
     self.displayLink.paused = YES;
     [self.displayLink invalidate];
+    
+    //开启定时器
     self.displayLink = [CADisplayLink displayLinkWithTarget:self selector:@selector(updateDisplay)];
     [self.displayLink addToRunLoop:[NSRunLoop currentRunLoop] forMode:NSRunLoopCommonModes];
 }
@@ -78,11 +83,21 @@
 
 - (void)updateDisplay
 {
-    self.curProgress += self.progress / (self.duration / self.displayLink.duration);
+    //安全判断
+    if (self.duration > 0) {
+        CGFloat count = self.duration / self.displayLink.duration;
+        self.curProgress += self.progress / count;
+    } else {
+        self.curProgress = self.progress;
+    }
+    
+    //停止计时器
     if (self.curProgress >= self.progress) {
         self.displayLink.paused = YES;
         [self.displayLink invalidate];
     }
+    
+    //刷新UI
     [self setNeedsDisplay];
 }
 
