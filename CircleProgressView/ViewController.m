@@ -19,14 +19,15 @@
     [super viewDidLoad];
     
     self.progressView = [[YDCircleProgressView alloc] initWithFrame:CGRectMake(100, 100, 100, 100)];
-    _progressView.circleRadius = 30;
+    _progressView.backgroundColor = [UIColor redColor];
+    _progressView.circleRadius = 40;
     _progressView.circleBorderWidth = 8;
     _progressView.circleColor = [UIColor orangeColor];
     _progressView.progressColor = [UIColor greenColor];
     _progressView.pointRadius = 4;
     _progressView.pointColor = [UIColor whiteColor];
-    _progressView.pointBorderWidth = 1;
-    _progressView.pointBorderColor = [UIColor grayColor];
+    _progressView.pointBorderWidth = 0.5;
+    _progressView.pointBorderColor = [UIColor lightGrayColor];
     [self.view addSubview:_progressView];
 }
 

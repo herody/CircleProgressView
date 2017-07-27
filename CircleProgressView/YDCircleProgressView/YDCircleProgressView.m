@@ -41,7 +41,7 @@
 - (CGFloat)circleRadius
 {
     if (!_circleRadius) {
-        _circleRadius = self.bounds.size.width * 0.5 - 4 > 0 ? self.bounds.size.width * 0.5 - 4 : self.bounds.size.width * 0.5;
+        self.circleRadius = self.bounds.size.width * 0.5 - MAX(self.pointRadius, self.circleBorderWidth * 0.5);
     }
     return _circleRadius;
 }
