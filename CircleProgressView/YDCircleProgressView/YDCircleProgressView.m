@@ -29,12 +29,21 @@
         self.pointColor = [UIColor whiteColor];
         self.pointBorderColor = [UIColor lightGrayColor];
         
-        self.circleRadius = self.bounds.size.width * 0.5 - 10;
         self.circleBorderWidth = 4.0;
         self.pointRadius = 2.5;
         self.pointBorderWidth = 0.5;
     }
     return self;
+}
+
+#pragma mark - 懒加载
+
+- (CGFloat)circleRadius
+{
+    if (!_circleRadius) {
+        _circleRadius = self.bounds.size.width * 0.5 - 4 > 0 ? self.bounds.size.width * 0.5 - 4 : self.bounds.size.width * 0.5;
+    }
+    return _circleRadius;
 }
 
 #pragma mark - 重写drawRect
