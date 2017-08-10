@@ -56,6 +56,8 @@
     if (curProgress < 0 || curProgress > 1) {
         return;
     }
+    
+    //setter
     _curProgress = curProgress;
     
     //刷新UI
@@ -91,11 +93,6 @@
 
 - (void)updateProgress:(CGFloat)progress duration:(NSTimeInterval)duration completion:(CompletionBlock)completion
 {
-    //安全判断
-    if (progress < 0 || progress > 1) {
-        return;
-    }
-    
     //保存属性值
     self.duration = duration;
     self.progressDelta = progress - self.curProgress;
@@ -118,15 +115,16 @@
     //更新计数器
     self.runCount++;
     
-    //计算定时器运行次数
+    //计算最新进度
     NSInteger count = ceil(self.duration / self.displayLink.duration);
     count = count > 0 ? count : 1;
+    CGFloat progress = self.curProgress + self.progressDelta / count;
     
     //更新进度
-    self.curProgress += self.progressDelta / count;
+    self.curProgress = progress;
     
     //停止计时器
-    if (self.runCount == count) {
+    if (self.runCount == count || progress < 0 || progress > 1) {
         self.displayLink.paused = YES;
         [self.displayLink invalidate];
         if (self.completion) self.completion();
