@@ -10,9 +10,10 @@
 
 @interface YDCircleProgressView ()
 @property (nonatomic, strong) CADisplayLink *displayLink;
-@property (nonatomic, assign) CGFloat progress;
 @property (nonatomic, assign) NSTimeInterval duration;
-@property (nonatomic, assign) CGFloat curProgress;
+@property (nonatomic, assign) CGFloat startProgress;
+@property (nonatomic, assign) CGFloat endProgress;
+@property (nonatomic, copy) CompletionBlock completion;
 @end
 
 @implementation YDCircleProgressView
@@ -24,14 +25,18 @@
     self = [super initWithFrame:frame];
     if (self) {
         self.backgroundColor = [UIColor clearColor];
+        
+        self.circleBorderWidth = 4.0f;
         self.circleColor = [UIColor blackColor];
+        
         self.progressColor = [UIColor cyanColor];
+        
+        self.pointRadius = 2.5f;
+        self.pointBorderWidth = 0.5f;
         self.pointColor = [UIColor whiteColor];
         self.pointBorderColor = [UIColor lightGrayColor];
         
-        self.circleBorderWidth = 4.0;
-        self.pointRadius = 2.5;
-        self.pointBorderWidth = 0.5;
+        self.curProgress = 0.0f;
     }
     return self;
 }
@@ -73,11 +78,18 @@
 
 #pragma mark - 公开方法
 
-- (void)runToProgress:(CGFloat)progress duration:(NSTimeInterval)duration
+- (void)updateProgress:(CGFloat)progress
 {
-    self.progress = progress;
+    self.curProgress = progress;
+    [self setNeedsDisplay];
+}
+
+- (void)updateProgress:(CGFloat)progress duration:(NSTimeInterval)duration completion:(CompletionBlock)completion
+{
+    self.startProgress = self.curProgress;
+    self.endProgress = progress;
     self.duration = duration;
-    self.curProgress = 0;
+    self.completion = completion;
     
     //停止定时器
     self.displayLink.paused = YES;
@@ -95,15 +107,17 @@
     //安全判断
     if (self.duration > 0) {
         CGFloat count = self.duration / self.displayLink.duration;
-        self.curProgress += self.progress / count;
+        CGFloat progress = self.endProgress - self.startProgress;
+        self.curProgress += progress / count;
     } else {
-        self.curProgress = self.progress;
+        self.curProgress = self.endProgress;
     }
     
     //停止计时器
-    if (self.curProgress >= self.progress) {
+    if (self.curProgress >= self.endProgress) {
         self.displayLink.paused = YES;
         [self.displayLink invalidate];
+        if (self.completion) self.completion();
     }
     
     //刷新UI

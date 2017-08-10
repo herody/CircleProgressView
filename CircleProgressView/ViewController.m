@@ -33,7 +33,9 @@
 
 - (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event
 {
-    [self.progressView runToProgress:0.8 duration:2.0];
+    [self.progressView updateProgress:self.progressView.curProgress + 0.1 duration:2.0 completion:^{
+        NSLog(@"进度更新完成");
+    }];
 }
 
 @end
