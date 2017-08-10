@@ -29,11 +29,12 @@
     _progressView.pointBorderWidth = 0.5;
     _progressView.pointBorderColor = [UIColor lightGrayColor];
     [self.view addSubview:_progressView];
+    _progressView.curProgress = 0.8;
 }
 
 - (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event
 {
-    [self.progressView updateProgress:self.progressView.curProgress + 0.1 duration:2.0 completion:^{
+    [self.progressView updateProgress:self.progressView.curProgress - 0.1 duration:2.0 completion:^{
         NSLog(@"进度更新完成");
     }];
 }

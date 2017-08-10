@@ -11,8 +11,8 @@
 @interface YDCircleProgressView ()
 @property (nonatomic, strong) CADisplayLink *displayLink;
 @property (nonatomic, assign) NSTimeInterval duration;
-@property (nonatomic, assign) CGFloat startProgress;
-@property (nonatomic, assign) CGFloat endProgress;
+@property (nonatomic, assign) CGFloat progressDelta;
+@property (nonatomic, assign) NSInteger runCount;
 @property (nonatomic, copy) CompletionBlock completion;
 @end
 
@@ -25,17 +25,14 @@
     self = [super initWithFrame:frame];
     if (self) {
         self.backgroundColor = [UIColor clearColor];
-        
+        //赋初始值
         self.circleBorderWidth = 4.0f;
         self.circleColor = [UIColor blackColor];
-        
         self.progressColor = [UIColor cyanColor];
-        
         self.pointRadius = 2.5f;
         self.pointBorderWidth = 0.5f;
         self.pointColor = [UIColor whiteColor];
         self.pointBorderColor = [UIColor lightGrayColor];
-        
         self.curProgress = 0.0f;
     }
     return self;
@@ -51,7 +48,21 @@
     return _circleRadius;
 }
 
-#pragma mark - 重写drawRect
+#pragma mark - setter方法
+
+- (void)setCurProgress:(CGFloat)curProgress
+{
+    //安全判断
+    if (curProgress < 0 || curProgress > 1) {
+        return;
+    }
+    _curProgress = curProgress;
+    
+    //刷新UI
+    [self setNeedsDisplay];
+}
+
+#pragma mark - drawRect
 
 - (void)drawRect:(CGRect)rect
 {
@@ -78,17 +89,17 @@
 
 #pragma mark - 公开方法
 
-- (void)updateProgress:(CGFloat)progress
-{
-    self.curProgress = progress;
-    [self setNeedsDisplay];
-}
-
 - (void)updateProgress:(CGFloat)progress duration:(NSTimeInterval)duration completion:(CompletionBlock)completion
 {
-    self.startProgress = self.curProgress;
-    self.endProgress = progress;
+    //安全判断
+    if (progress < 0 || progress > 1) {
+        return;
+    }
+    
+    //保存属性值
     self.duration = duration;
+    self.progressDelta = progress - self.curProgress;
+    self.runCount = 0;
     self.completion = completion;
     
     //停止定时器
@@ -104,24 +115,22 @@
 
 - (void)updateDisplay
 {
-    //安全判断
-    if (self.duration > 0) {
-        CGFloat count = self.duration / self.displayLink.duration;
-        CGFloat progress = self.endProgress - self.startProgress;
-        self.curProgress += progress / count;
-    } else {
-        self.curProgress = self.endProgress;
-    }
+    //更新计数器
+    self.runCount++;
+    
+    //计算定时器运行次数
+    NSInteger count = ceil(self.duration / self.displayLink.duration);
+    count = count > 0 ? count : 1;
+    
+    //更新进度
+    self.curProgress += self.progressDelta / count;
     
     //停止计时器
-    if (self.curProgress >= self.endProgress) {
+    if (self.runCount == count) {
         self.displayLink.paused = YES;
         [self.displayLink invalidate];
         if (self.completion) self.completion();
     }
-    
-    //刷新UI
-    [self setNeedsDisplay];
 }
 
 @end

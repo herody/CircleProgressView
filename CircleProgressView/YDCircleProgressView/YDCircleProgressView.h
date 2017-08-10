@@ -22,14 +22,7 @@ typedef void(^CompletionBlock)(void);
 @property (nonatomic, strong) UIColor *pointColor;  //小圆点颜色
 @property (nonatomic, strong) UIColor *pointBorderColor; //小圆点边框色
 
-@property (nonatomic, assign) CGFloat curProgress;  //当前进度值
-
-/**
- 更新进度
-
- @param progress 更新后的进度值
- */
-- (void)updateProgress:(CGFloat)progress;
+@property (nonatomic, assign) CGFloat curProgress;  //当前进度值(0~1)
 
 /**
  更新进度动画
